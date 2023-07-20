@@ -31,14 +31,14 @@ ul {
   margin: 0;
   height: calc(100vh - 162px - 4rem - 1rem - 42px);
   overflow-y: scroll;
-  width: 100%
+  width: 100%;
 }
 
 #check-all-div {
   display: flex;
   align-items: center;
   align-self: flex-start;
-  margin-left: calc((327px - 18px - 24px - 167px) / 2)
+  margin-left: calc((327px - 18px - 24px - 167px) / 2);
 }
 
 .disabled-text {
