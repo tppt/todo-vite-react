@@ -1,0 +1,5 @@
+.strikethrough {
+  text-decoration: line-through;
+  opacity: 1;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
+}
