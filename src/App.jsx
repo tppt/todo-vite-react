@@ -124,7 +124,7 @@ function App() {
           checked={allChecked}
           onChange={(event) => handleCheckAll(event)}
         />
-        <label htmlFor="check-all" className={!todos.length && "disabled-text"}>
+        <label htmlFor="check-all" className={!todos.length ? "disabled-text" : ""}>
           {allChecked ? `Uncheck All` : `Check All`}
         </label>
       </div>

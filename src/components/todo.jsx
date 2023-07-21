@@ -15,7 +15,7 @@ export default function Todo({
     <div>
       <Checkbox checked={checked} onChange={() => handleCheckbox(id)} />
       <TextField
-        className={`${checked && "strikethrough"}`}
+        className={`${checked ? "strikethrough" : ""}`}
         value={value}
         disabled={checked}
         variant="standard"
