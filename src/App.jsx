@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Todo from "./components/todo";
-import { TextField, Button, Checkbox } from "@mui/material";
-import { nanoid } from "nanoid";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { ColorModeWrapper } from "./components/color-mode-wrapper";
+import ColorToggleButton from "./components/color-toggle-button";
+import TodoForm from "./components/todo-form";
+import TodoList from "./components/todo-list";
 
 function App() {
   let myStoredTodos = localStorage.getItem("todos");
@@ -27,13 +27,6 @@ function App() {
 
   function handleTodoEntry(event) {
     setTodoEntry(event.target.value);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    if (!todoEntry) return;
-    setTodos([{ id: nanoid(), checked: false, value: todoEntry }, ...todos]);
-    setTodoEntry("");
   }
 
   function handleCheckbox(id) {
@@ -90,60 +83,31 @@ function App() {
   }
 
   return (
-    <main>
-      <header>
-        <h1>{`//TODO`}</h1>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            variant="standard"
-            value={todoEntry}
-            onChange={(event) => handleTodoEntry(event)}
-          />
-          <Button
-            id="add-button"
-            type="submit"
-            variant="contained"
-            disabled={!todoEntry.length}
-          >
-            Add
-          </Button>
-          <Button
-            id="delete-button"
-            variant="contained"
-            disabled={!todos.some((todo) => todo.checked)}
-            onClick={() => handleDelete()}
-          >
-            <DeleteIcon />
-          </Button>
-        </form>
-      </header>
-      <div id="check-all-div">
-        <Checkbox
-          id="check-all"
-          disabled={todos.length === 0}
-          checked={allChecked}
-          onChange={(event) => handleCheckAll(event)}
-        />
-        <label htmlFor="check-all" className={!todos.length ? "disabled-text" : ""}>
-          {allChecked ? `Uncheck All` : `Check All`}
-        </label>
-      </div>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <Todo
-              id={todo.id}
-              checked={todo.checked}
-              handleCheckbox={handleCheckbox}
-              value={todo.value}
-              handleValueChange={handleValueChange}
-              handleTodoKeyUp={handleTodoKeyUp}
-              handleBlur={handleBlur}
-            />
-          </li>
-        ))}
-      </ul>
-    </main>
+    <ColorModeWrapper>
+      <main>
+        <header>
+          <ColorToggleButton />
+          <h1>{`//TODO`}</h1>
+        </header>
+        <TodoForm
+          todoEntry={todoEntry}
+          setTodoEntry={setTodoEntry}
+          todos={todos}
+          setTodos={setTodos}
+          handleTodoEntry={handleTodoEntry}
+          handleDelete={handleDelete}
+        ></TodoForm>
+        <TodoList
+          todos={todos}
+          allChecked={allChecked}
+          handleCheckAll={handleCheckAll}
+          handleCheckbox={handleCheckbox}
+          handleValueChange={handleValueChange}
+          handleTodoKeyUp={handleTodoKeyUp}
+          handleBlur={handleBlur}
+        ></TodoList>
+      </main>
+    </ColorModeWrapper>
   );
 }
 
