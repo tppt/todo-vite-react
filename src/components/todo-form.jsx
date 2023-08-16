@@ -1,14 +1,19 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { TextField, Button } from "@mui/material";
 
-export default function TodoForm({ todoEntry, handleTodoEntry, setTodoEntry, todos, setTodos, handleDelete }) {
+export default function TodoForm({ onSubmit, }) {
+  const [todoEntry, setTodoEntry] = useState("");
+
+  function handleTodoEntry(event) {
+    setTodoEntry(event.target.value);
+  }
+  
   function handleSubmit(event) {
     event.preventDefault();
     if (!todoEntry) return;
-    setTodos([{ id: nanoid(), checked: false, value: todoEntry }, ...todos]);
     setTodoEntry("");
+    onSubmit(todoEntry)
   }
   
   return (
@@ -27,23 +32,10 @@ export default function TodoForm({ todoEntry, handleTodoEntry, setTodoEntry, tod
       >
         Add
       </Button>
-      <Button
-        id="delete-button"
-        variant="contained"
-        disabled={!todos.some((todo) => todo.checked)}
-        onClick={() => handleDelete()}
-      >
-        <DeleteIcon />
-      </Button>
     </form>
   )
 }
 
 TodoForm.propTypes = {
-  todoEntry: PropTypes.string.isRequired,
-  setTodoEntry: PropTypes.func.isRequired,
-  handleTodoEntry: PropTypes.func.isRequired,
-  todos: PropTypes.array.isRequired,
-  setTodos: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

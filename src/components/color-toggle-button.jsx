@@ -10,7 +10,7 @@ export default function ColorToggleButton() {
   const theme = useTheme();
   return (
     <IconButton onClick={toggleColorMode} color="inherit">
-      {theme.palette.mode === 'dark' ? <Brightness4Icon /> : <Brightness5Icon />}
+      {theme.palette.mode === 'dark' ? <Brightness5Icon /> : <Brightness4Icon />}
     </IconButton>
   )
 }

@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import { Checkbox } from "@mui/material";
+import { Checkbox, Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Todo from "./todo";
 
-export default function TodoList ({ todos, allChecked, handleCheckAll, handleCheckbox, handleValueChange, handleTodoKeyUp, handleBlur }) {
+export default function TodoList ({ todos, allChecked, handleCheckAll, handleCheckbox, handleValueChange, handleTodoKeyUp, handleBlur, handleDelete }) {
   return (
     <>
-      <div id="check-all-div">
+      <div id="list-controls-div">
         <Checkbox
           id="check-all"
           disabled={todos.length === 0}
@@ -15,7 +16,16 @@ export default function TodoList ({ todos, allChecked, handleCheckAll, handleChe
         <label htmlFor="check-all" className={!todos.length ? "disabled-text" : ""}>
           {allChecked ? `Uncheck All` : `Check All`}
         </label>
+        <Button
+          id="delete-button"
+          variant="contained"
+          disabled={!todos.some((todo) => todo.checked)}
+          onClick={() => handleDelete()}
+        >
+          <DeleteIcon />
+        </Button>
       </div>
+      
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
@@ -40,6 +50,7 @@ TodoList.propTypes = {
   allChecked: PropTypes.bool.isRequired,
   handleCheckAll: PropTypes.func.isRequired,
   handleCheckbox: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   handleValueChange: PropTypes.func.isRequired,
   handleTodoKeyUp: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
